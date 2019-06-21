@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Output Management</title>
+    <script src="./print.bundle.js"></script>
+    <script src="//cdn.8thwall.com/web/aframe/8frame-0.9.0.min.js"></script>
+
+    <!-- XR Extras - provides utilities like load screen, almost there, and error handling.
+                See github.com/8thwall/web/xrextras -->
+    <script src="//cdn.8thwall.com/web/xrextras/xrextras.js"></script>
+
+    <!-- 8thWall Web - Replace the app key here with your own app key -->
+    <script src="//apps.8thwall.com/xrweb?appKey=tqAJdw3FKYVrgSiFCZweCkf1A7OR1uP9L4AIuUqwFNbUa3rV397famiNVAX4hsQ3026e74"></script>
+  </head>
+  <body>
+    <script src="./app.bundle.js"></script>
+    <div id="loading-container">
+      <h3>Chargement en cours</h3>
+      <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div id="container" class="collapsed">
+      <div class="outer">
+        <div
+          id="closeButton"
+          onclick="document.getElementById('container').classList.add('collapsed')"
+        >
+          Fermer
+        </div>
+      </div>
+      <div id="contents"></div>
+      <div class="outer">Article Wikipédia</div>
+    </div>
+
+    <a-scene
+      light="defaultLightsEnabled: false"
+      xrweb
+      xrextras-almost-there
+      handle-loading
+      xrextras-runtime-error
+    >
+      <!-- We can define assets here to be loaded when A-Frame initializes -->
+      <a-assets>
+        <!-- ATHENA -->
+        <a-asset-item
+          id="athena-logo-obj"
+          src="src/assets/athena/logo/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="athena-logo-mtl"
+          src="src/assets/athena/logo/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="athena-description-obj"
+          src="src/assets/athena/description/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="athena-description-mtl"
+          src="src/assets/athena/description/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="athena-chiffres-obj"
+          src="src/assets/athena/chiffres/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="athena-chiffres-mtl"
+          src="src/assets/athena/chiffres/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="athena-solutions-obj"
+          src="src/assets/athena/solutions/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="athena-solutions-mtl"
+          src="src/assets/athena/solutions/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="button-open-obj"
+          src="src/assets/button/open/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="button-open-mtl"
+          src="src/assets/button/open/obj.mtl"
+        ></a-asset-item>
+        <!-- BOUTONS -->
+        <a-asset-item
+          id="button-chiffres-obj"
+          src="src/assets/button/chiffres/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="button-chiffres-mtl"
+          src="src/assets/button/chiffres/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="button-solutions-obj"
+          src="src/assets/button/solutions/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="button-solutions-mtl"
+          src="src/assets/button/solutions/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="button-technos-obj"
+          src="src/assets/button/technos/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="button-technos-mtl"
+          src="src/assets/button/technos/obj.mtl"
+        ></a-asset-item>
+        <!-- TECHNOS -->
+        <a-asset-item
+          id="ansible-mtl"
+          src="src/assets/technos/ansible/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="ansible-obj"
+          src="src/assets/technos/ansible/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="artifactory-mtl"
+          src="src/assets/technos/artifactory/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="artifactory-obj"
+          src="src/assets/technos/artifactory/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="confluence-mtl"
+          src="src/assets/technos/confluence/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="confluence-obj"
+          src="src/assets/technos/confluence/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="docker-mtl"
+          src="src/assets/technos/docker/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="docker-obj"
+          src="src/assets/technos/docker/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="gitlab-mtl"
+          src="src/assets/technos/gitlab/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="gitlab-obj"
+          src="src/assets/technos/gitlab/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="jenkins-mtl"
+          src="src/assets/technos/jenkins/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="jenkins-obj"
+          src="src/assets/technos/jenkins/tinker.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="nexus-mtl"
+          src="src/assets/technos/nexus/obj.mtl"
+        ></a-asset-item>
+        <a-asset-item
+          id="nexus-obj"
+          src="src/assets/technos/nexus/tinker.obj"
+        ></a-asset-item>
+      </a-assets>
+
+      <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
+      <a-camera
+        position="0 8 0"
+        id="camera"
+        raycaster="objects: .cantap"
+        cursor="
+                    fuse: false;
+                    rayOrigin: mouse;"
+      >
+      </a-camera>
+
+      <a-entity
+        light="type: directional;
+                        intensity: 0.6; castShadow: true;"
+        position="1 4.3 2.5"
+      >
+      </a-entity>
+
+      <a-light type="ambient" intensity="0.4" color="BBB"></a-light>
+
+      <!-- Note: "name:" must be set to the name of the image target uploaded to the 8th Wall Console -->
+      <a-entity
+        animation="property: scale; from: 0 0 0; to: 1 1 1; easing: easeOutElastic; dur: 800; startEvents: xrimagefound"
+        page-router
+        id="router"
+        athena-image-target="name: athena"
+      >
+        <a-plane
+          rotation="-90 0 0"
+          width="100"
+          color="tomato"
+          opacity="0.2"
+          height="100"
+          shadow-material
+          shadow="receive: true;"
+        ></a-plane>
+
+        <a-entity
+          id="button-open"
+          handle-open-events
+          position="3 6 0"
+          class="cantap"
+          scale="0.02 0.02 0.02"
+          obj-model="obj: #button-open-obj; mtl: #button-open-mtl"
+        ></a-entity>
+
+        <a-entity
+          handle-logo-events
+          id="logo"
+          class="cantap"
+          position="0 6 0"
+          scale="0.05 0.05 0.05"
+          shadow="castShadow: true;"
+          obj-model="obj: #athena-logo-obj; mtl: #athena-logo-mtl;"
+        ></a-entity>
+
+        <!-- home page-->
+        <a-entity scale="1 1 1" position="0 3 0" id="description-page">
+          <a-entity
+            obj-model="obj: #athena-description-obj; mtl: #athena-description-mtl;"
+            scale="0.1 0.1 0.1"
+            id="description"
+            shadow="castShadow: true;"
+          ></a-entity>
+        </a-entity>
+
+        <!-- chiffres page-->
+        <a-entity scale="0 0 0" position="0 3 0" id="chiffres-page">
+          <a-sphere
+            color="#FF7390"
+            id="first-sphere"
+            position="1 0.5 0"
+            scale="0 0 0"
+            animation="property: scale; to: 0.5 0.5 0.5; easing: easeInOutElastic; dur: 1500; startEvents: startOpen; delay: 300;"
+            shadow="castShadow: true;"
+          >
+            <a-text
+              position="0 -1.5 0"
+              value="200 assets artifactory"
+              scale="2 2 2"
+            ></a-text>
+          </a-sphere>
+          <a-sphere
+            id="second-sphere"
+            color="#FF7390"
+            position="-1 1 1"
+            scale="0 0 0"
+            animation="property: scale; to: 1 1 1; easing: easeInOutElastic; dur: 1600; startEvents: startOpen; delay: 1500;"
+            shadow="castShadow: true;"
+          >
+            <a-text
+              position="0 -1.5 0"
+              value="4200 messages de support"
+              scale="2 2 2"
+            ></a-text>
+          </a-sphere>
+          <a-sphere
+            id="third-sphere"
+            color="#9671FC"
+            position="0 0.25 -1.5"
+            scale="0 0 0"
+            animation="property: scale; to: 0.5 0.5 0.5; easing: easeInOutElastic; dur: 1600; startEvents: startOpen; delay: 2800;"
+            shadow="castShadow: true;"
+          >
+            <a-text position="0 -1.5 0" value="500 utilisateurs"></a-text>
+          </a-sphere>
+        </a-entity>
+
+        <!-- solutions page-->
+        <a-entity scale="0 0 0" position="0 3 0" id="solutions-page">
+          <a-entity
+            obj-model="obj: #athena-solutions-obj; mtl: #athena-solutions-mtl;"
+            scale="0.03 0.03 0.03"
+            id="solutions"
+            shadow="castShadow: true;"
+          ></a-entity>
+        </a-entity>
+
+        <!-- technos pages -->
+        <a-entity
+          scale="0 0 0"
+          animation="property: rotation; to: 0 360 0; dur: 20000; loop:true; easing: linear; pauseEvents: pause;resumeEvents: resume;"
+          position="0 3 0"
+          id="technos-page"
+          technos-router
+        >
+          <a-entity rotation="0 51 0"
+            ><a-entity
+              scale="0.03 0.03 0.03"
+              animation__loop="property: rotation; loop: true; dur: 20000; from: 0 309 0; to: 0 -51 0; easing: linear; pauseEvents: pause;resumeEvents: resume;"
+              obj-model="obj: #ansible-obj; mtl: #ansible-mtl;"
+              class="cantap"
+              handle-techno-events
+              position="3 0 0"
+              id="ansible"
+              shadow="castShadow: true"
+            ></a-entity
+          ></a-entity>
+
+          <a-entity rotation="0 102 0"
+            ><a-entity
+              position="3 0 0"
+              class="cantap"
+              handle-techno-events
+              scale="0.03 0.03 0.03"
+              obj-model="obj: #artifactory-obj; mtl: #artifactory-mtl;"
+              id="artifactory"
+              animation__loop="property: rotation; loop: true; dur: 20000; from: 0 258 0; to: 0 -102 0; easing: linear; pauseEvents: pause;resumeEvents: resume;"
+              shadow="castShadow: true"
+            ></a-entity
+          ></a-entity>
+
+          <a-entity rotation="0 153 0"
+            ><a-entity
+              class="cantap"
+              handle-techno-events
+              position="3 0 0"
+              obj-model="obj: #confluence-obj; mtl: #confluence-mtl;"
+              scale="0.03 0.03 0.03"
+              animation__loop="property: rotation; loop: true; dur: 20000; from: 0 207 0; to: 0 -153 0; easing: linear; pauseEvents: pause;resumeEvents: resume;"
+              id="confluence"
+              shadow="castShadow: true"
+            ></a-entity
+          ></a-entity>
+
+          <a-entity rotation="0 204 0"
+            ><a-entity
+              class="cantap"
+              handle-techno-events
+              position="3 0 0"
+              obj-model="obj: #docker-obj; mtl: #docker-mtl;"
+              id="docker"
+              animation__loop="property: rotation; loop: true; dur: 20000; from: 0 156 0; to: 0 -204 0; easing: linear; pauseEvents: pause;resumeEvents: resume;"
+              scale="0.03 0.03 0.03"
+              shadow="castShadow: true"
+            ></a-entity
+          ></a-entity>
+
+          <a-entity rotation="0 255 0"
+            ><a-entity
+              class="cantap"
+              handle-techno-events
+              position="3 0 0"
+              animation__loop="property: rotation; loop: true; dur: 20000; from: 0 105 0; to: 0 -255 0; easing: linear; pauseEvents: pause;resumeEvents: resume;"
+              obj-model="obj: #gitlab-obj; mtl: #gitlab-mtl;"
+              id="gitlab"
+              scale="0.03 0.03 0.03"
+              shadow="castShadow: true"
+            ></a-entity
+          ></a-entity>
+
+          <a-entity rotation="0 306 0"
+            ><a-entity
+              class="cantap"
+              handle-techno-events
+              position="3 0 0"
+              animation__loop="property: rotation; loop: true; dur: 20000; from: 0 56 0; to: 0 -306 0; easing: linear; pauseEvents: pause;resumeEvents: resume;"
+              obj-model="obj: #jenkins-obj; mtl: #jenkins-mtl;"
+              id="jenkins"
+              scale="0.03 0.03 0.03"
+              shadow="castShadow: true"
+            ></a-entity
+          ></a-entity>
+
+          <a-entity rotation="0 0 0"
+            ><a-entity
+              class="cantap"
+              handle-techno-events
+              position="3 0 0"
+              animation__loop="property: rotation; loop: true; dur: 20000; from: 0 0 0; to: 0 -360 0; easing: linear; pauseEvents: pause;resumeEvents: resume;"
+              obj-model="obj: #nexus-obj; mtl: #nexus-mtl;"
+              id="nexus"
+              scale="0.03 0.03 0.03"
+              shadow="castShadow: true"
+            ></a-entity
+          ></a-entity>
+        </a-entity>
+
+        <!-- Bouton TECHNOS -->
+        <a-entity id="button-technos-wrapper">
+          <a-entity
+            handle-button-events
+            id="button-technos"
+            position="0 0 2.5"
+            rotation="-90 0 0"
+            obj-model="obj: #button-technos-obj; mtl: #button-technos-mtl;"
+            shadow="castShadow: true"
+            class="cantap"
+            scale="0.05 0.05 0.05"
+          ></a-entity>
+        </a-entity>
+        <a-entity id="button-chiffres-wrapper" rotation="0 5 0"
+          ><a-entity
+            handle-button-events
+            position="2.2 0 2.5"
+            rotation="-90 0 0"
+            id="button-chiffres"
+            obj-model="obj: #button-chiffres-obj; mtl: #button-chiffres-mtl;"
+            shadow="castShadow: true"
+            class="cantap"
+            scale="0.05 0.05 0.05"
+          ></a-entity
+        ></a-entity>
+
+        <a-entity id="button-solutions-wrapper" rotation="0 -5 0">
+          <a-entity
+            handle-button-events
+            position="-2.2 0 2.5"
+            rotation="-90 0 0"
+            id="button-solutions"
+            obj-model="obj: #button-solutions-obj; mtl: #button-solutions-mtl;"
+            shadow="castShadow: true"
+            class="cantap"
+            scale="0.05 0.05 0.05"
+          ></a-entity
+        ></a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>

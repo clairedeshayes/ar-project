@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Varela+Round&display=swap');
+body {
+  font-family: 'Varela Round', sans-serif;
+  background-image: linear-gradient(#282828, #383838);
+}
+
+#loading-container {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  text-align: center;
+  color: #b188ff;
+  visibility: visible;
+  opacity: 1;
+  background-image: linear-gradient(#282828, #383838);
+  transition-delay: 0s;
+}
+
+#loading-container.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.33s, opacity 0.33s linear;
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 27px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #b188ff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+
+#container {
+  position: absolute;
+  max-height: 50vh;
+  left: 10%;
+  right: 10%;
+  bottom: -2vh;
+  border-radius: 2vh;
+  padding: 1vh 2vh 3vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  background-color: white;
+  transition: 0.35s;
+}
+
+#container.collapsed {
+  transform: translateY(10%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#contents {
+  height: 100%;
+  overflow-y: scroll;
+  text-align: justify;
+  font-size: 0.8rem;
+  flex-grow: 1;
+}
+
+#contents h1 {
+  text-align: left;
+}
+
+.outer {
+  flex: 0 0 auto;
+}
+
+#closeButton {
+  float: right;
+  padding: 0.25em;
+}
